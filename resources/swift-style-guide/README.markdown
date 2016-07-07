@@ -62,8 +62,8 @@ Use descriptive names with camel case for classes, methods, variables, etc. Type
 private let maximumWidgetCount = 100
 
 class WidgetContainer {
-  var widgetButton: UIButton
-  let widgetHeightPercentage = 0.85
+    var widgetButton: UIButton
+    let widgetHeightPercentage = 0.85
 }
 ```
 
@@ -73,8 +73,8 @@ class WidgetContainer {
 let MAX_WIDGET_COUNT = 100
 
 class app_widgetContainer {
-  var wBut: UIButton
-  let wHeightPct = 0.85
+    var wBut: UIButton
+    let wHeightPct = 0.85
 }
 ```
 
@@ -109,8 +109,8 @@ For methods, follow the standard Apple convention of referring to the first para
 
 ```swift
 class Counter {
-  func combineWith(otherCounter: Counter, options: Dictionary?) { ... }
-  func incrementBy(amount: Int) { ... }
+    func combineWith(otherCounter: Counter, options: Dictionary?) { ... }
+    func incrementBy(amount: Int) { ... }
 }
 ```
 
@@ -124,10 +124,10 @@ Following Apple's API Design Guidelines for Swift 3, use lowerCamelCase for enum
 
 ```swift
 enum Shape {
-  case rectangle
-  case square
-  case rightTriangle
-  case equilateralTriangle
+    case rectangle
+    case square
+    case rightTriangle
+    case equilateralTriangle
 }
 ```
 
@@ -215,24 +215,24 @@ Use extensions to organize your code into logical blocks of functionality. Each 
 **Preferred:**
 ```swift
 class MyViewcontroller: UIViewController {
-  // class stuff here
+    // class stuff here
 }
 
 // MARK: - UITableViewDataSource
 extension MyViewcontroller: UITableViewDataSource {
-  // table view data source methods
+    // table view data source methods
 }
 
 // MARK: - UIScrollViewDelegate
 extension MyViewcontroller: UIScrollViewDelegate {
-  // scroll view delegate methods
+    // scroll view delegate methods
 }
 ```
 
 **Not Preferred:**
 ```swift
 class MyViewcontroller: UIViewController, UITableViewDataSource, UIScrollViewDelegate {
-  // all methods
+    // all methods
 }
 ```
 
@@ -249,8 +249,8 @@ Aspirational methods not directly associated with the tutorial whose implementat
 **Not Preferred:**
 ```swift
 override func didReceiveMemoryWarning() {
-   super.didReceiveMemoryWarning()
-  // Dispose of any resources that can be recreated.
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
 }
 
 override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -259,8 +259,8 @@ override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 }
 
 override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  // #warning Incomplete implementation, return the number of rows
-  return Database.contacts.count
+    // #warning Incomplete implementation, return the number of rows
+    return Database.contacts.count
 }
 
 ```
@@ -268,7 +268,7 @@ override func tableView(tableView: UITableView, numberOfRowsInSection section: I
 **Preferred:**
 ```swift
 override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-  return Database.contacts.count
+    return Database.contacts.count
 }
 ```
 ### Minimal Imports
@@ -277,11 +277,7 @@ Keep imports minimal. For example, don't import `UIKit` when importing `Foundati
 
 ## Spacing
 
-* Indent using 4 spaces rather than tabs. Be sure to set this preference in Xcode and in the Project settings as shown below:
-
-  ![Xcode indent settings](screens/indentation.png)
-  
-  ![Xcode Project settings](screens/project_settings.png)
+* Indent using 4 spaces rather than tabs. 
 
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
 * Tip: You can re-indent by selecting some code (or ⌘A to select all) and then Control-I (or Editor\Structure\Re-Indent in the menu). Some of the Xcode template code will have 4-space tabs hard coded, so this is a good way to fix that.
@@ -289,9 +285,9 @@ Keep imports minimal. For example, don't import `UIKit` when importing `Foundati
 **Preferred:**
 ```swift
 if user.isHappy {
-  // Do something
+    // Do something
 } else {
-  // Do something else
+    // Do something else
 }
 ```
 
@@ -299,10 +295,10 @@ if user.isHappy {
 ```swift
 if user.isHappy
 {
-  // Do something
+    // Do something
 }
 else {
-  // Do something else
+    // Do something else
 }
 ```
 
@@ -313,14 +309,14 @@ else {
 **Preferred:**
 ```swift
 class TestDatabase: Database {
-  var data: [String: CGFloat] = ["A": 1.2, "B": 3.2]
+    var data: [String: CGFloat] = ["A": 1.2, "B": 3.2]
 }
 ```
 
 **Not Preferred:**
 ```swift
 class TestDatabase : Database {
-  var data :[String:CGFloat] = ["A" : 1.2, "B":3.2]
+    var data :[String:CGFloat] = ["A" : 1.2, "B":3.2]
 }
 ```
 
@@ -347,38 +343,38 @@ Here's an example of a well-styled class definition:
 
 ```swift
 class Circle: Shape {
-  var x: Int, y: Int
-  var radius: Double
-  var diameter: Double {
-    get {
-      return radius * 2
+    var x: Int, y: Int
+    var radius: Double
+    var diameter: Double {
+      get {
+        return radius * 2
+      }
+      set {
+        radius = newValue / 2
+      }
     }
-    set {
-      radius = newValue / 2
+
+    init(x: Int, y: Int, radius: Double) {
+      self.x = x
+      self.y = y
+      self.radius = radius
     }
-  }
 
-  init(x: Int, y: Int, radius: Double) {
-    self.x = x
-    self.y = y
-    self.radius = radius
-  }
+    convenience init(x: Int, y: Int, diameter: Double) {
+      self.init(x: x, y: y, radius: diameter / 2)
+    }
 
-  convenience init(x: Int, y: Int, diameter: Double) {
-    self.init(x: x, y: y, radius: diameter / 2)
-  }
+    func describe() -> String {
+      return "I am a circle at \(centerString()) with an area of \(computeArea())"
+    }
 
-  func describe() -> String {
-    return "I am a circle at \(centerString()) with an area of \(computeArea())"
-  }
+    override func computeArea() -> Double {
+      return M_PI * radius * radius
+    }
 
-  override func computeArea() -> Double {
-    return M_PI * radius * radius
-  }
-
-  private func centerString() -> String {
-    return "(\(x),\(y))"
-  }
+    private func centerString() -> String {
+      return "(\(x),\(y))"
+    }
 }
 ```
 
@@ -398,16 +394,16 @@ Use `self` when required to differentiate between property names and arguments i
 
 ```swift
 class BoardLocation {
-  let row: Int, column: Int
+    let row: Int, column: Int
 
-  init(row: Int, column: Int) {
-    self.row = row
-    self.column = column
-    
-    let closure = {
-      print(self.row)
+    init(row: Int, column: Int) {
+      self.row = row
+      self.column = column
+      
+      let closure = {
+        print(self.row)
+      }
     }
-  }
 }
 ```
 
@@ -418,16 +414,16 @@ For conciseness, if a computed property is read-only, omit the get clause. The g
 **Preferred:**
 ```swift
 var diameter: Double {
-  return radius * 2
+    return radius * 2
 }
 ```
 
 **Not Preferred:**
 ```swift
 var diameter: Double {
-  get {
-    return radius * 2
-  }
+    get {
+      return radius * 2
+    }
 }
 ```
 
@@ -438,10 +434,10 @@ Mark classes `final` when inheritance is not intended. Example:
 ```swift
 // Turn any generic type into a reference type using this Box class.
 final class Box<T> {
-  let value: T 
-  init(_ value: T) {
-    self.value = value
-  }
+    let value: T 
+    init(_ value: T) {
+      self.value = value
+    }
 }
 ```
 
@@ -451,7 +447,7 @@ Keep short function declarations on one line including the opening brace:
 
 ```swift
 func reticulateSplines(spline: [Double]) -> Bool {
-  // reticulate code goes here
+    // reticulate code goes here
 }
 ```
 
@@ -459,8 +455,8 @@ For functions with long signatures, add line breaks at appropriate points and ad
 
 ```swift
 func reticulateSplines(spline: [Double], adjustmentFactor: Double,
-    translateConstant: Int, comment: String) -> Bool {
-  // reticulate code goes here
+      translateConstant: Int, comment: String) -> Bool {
+    // reticulate code goes here
 }
 ```
 
@@ -471,30 +467,30 @@ Use trailing closure syntax only if there's a single closure expression paramete
 **Preferred:**
 ```swift
 UIView.animateWithDuration(1.0) {
-  self.myView.alpha = 0
+    self.myView.alpha = 0
 }
 
 UIView.animateWithDuration(1.0,
-  animations: {
-    self.myView.alpha = 0
-  },
-  completion: { finished in
-    self.myView.removeFromSuperview()
-  }
+    animations: {
+      self.myView.alpha = 0
+    },
+    completion: { finished in
+      self.myView.removeFromSuperview()
+    }
 )
 ```
 
 **Not Preferred:**
 ```swift
 UIView.animateWithDuration(1.0, animations: {
-  self.myView.alpha = 0
+    self.myView.alpha = 0
 })
 
 UIView.animateWithDuration(1.0,
-  animations: {
-    self.myView.alpha = 0
-  }) { f in
-    self.myView.removeFromSuperview()
+    animations: {
+      self.myView.alpha = 0
+    }) { f in
+      self.myView.removeFromSuperview()
 }
 ```
 
@@ -502,7 +498,7 @@ For single-expression closures where the context is clear, use implicit returns:
 
 ```swift
 attendeeList.sort { a, b in
-  a > b
+    a > b
 }
 ```
 
@@ -512,9 +508,9 @@ Chained methods using trailing closures should be clear and easy to read in cont
 let value = numbers.map { $0 * 2 }.filter { $0 % 3 == 0 }.indexOf(90)
 
 let value = numbers
-   .map {$0 * 2}
-   .filter {$0 > 50}
-   .map {$0 + 10}
+     .map {$0 * 2}
+     .filter {$0 > 50}
+     .map {$0 + 10}
 ```
 
 ## Types
@@ -546,8 +542,8 @@ You can define constants on a type rather than an instance of that type using ty
 **Preferred:**
 ```swift
 enum Math {
-  static let e  = 2.718281828459045235360287
-  static let pi = 3.141592653589793238462643
+    static let e  = 2.718281828459045235360287
+    static let pi = 3.141592653589793238462643
 }
 
 radius * Math.pi * 2 // circumference
@@ -598,7 +594,7 @@ var volume: Double?
 
 // later on...
 if let subview = subview, volume = volume {
-  // do something with unwrapped subview and volume
+    // do something with unwrapped subview and volume
 }
 ```
 
@@ -608,9 +604,9 @@ var optionalSubview: UIView?
 var volume: Double?
 
 if let unwrappedSubview = optionalSubview {
-  if let realVolume = volume {
-    // do something with unwrappedSubview and realVolume
-  }
+    if let realVolume = volume {
+      // do something with unwrappedSubview and realVolume
+    }
 }
 ```
 
@@ -641,11 +637,11 @@ Consider using lazy initialization for finer grain control over object lifetime.
 lazy var locationManager: CLLocationManager = self.makeLocationManager()
 
 private func makeLocationManager() -> CLLocationManager {
-  let manager = CLLocationManager()
-  manager.desiredAccuracy = kCLLocationAccuracyBest
-  manager.delegate = self
-  manager.requestAlwaysAuthorization()
-  return manager
+    let manager = CLLocationManager()
+    manager.desiredAccuracy = kCLLocationAccuracyBest
+    manager.delegate = self
+    manager.requestAlwaysAuthorization()
+    return manager
 }
 ```
 
@@ -745,9 +741,9 @@ Extend object lifetime using the `[weak self]` and `guard let strongSelf = self 
 **Preferred**
 ```swift
 resource.request().onComplete { [weak self] response in
-  guard let strongSelf = self else { return }
-  let model = strongSelf.updateModel(response)
-  strongSelf.updateUI(model)
+    guard let strongSelf = self else { return }
+    let model = strongSelf.updateModel(response)
+    strongSelf.updateUI(model)
 }
 ```
 
@@ -755,8 +751,8 @@ resource.request().onComplete { [weak self] response in
 ```swift
 // might crash if self is released before response returns
 resource.request().onComplete { [unowned self] response in
-  let model = self.updateModel(response)
-  self.updateUI(model)
+    let model = self.updateModel(response)
+    self.updateUI(model)
 }
 ```
 
@@ -776,14 +772,14 @@ Full access control annotation in tutorials can distract from the main topic and
 **Preferred:**
 ```swift
 class TimeMachine {  
-  private dynamic lazy var fluxCapacitor = FluxCapacitor()
+    private dynamic lazy var fluxCapacitor = FluxCapacitor()
 }
 ```
 
 **Not Preferred:**
 ```swift
 class TimeMachine {  
-  lazy dynamic private var fluxCapacitor = FluxCapacitor()
+    lazy dynamic private var fluxCapacitor = FluxCapacitor()
 }
 ```
 
@@ -794,19 +790,19 @@ Prefer the `for-in` style of `for` loop over the `while-condition-increment` sty
 **Preferred:**
 ```swift
 for _ in 0..<3 {
-  print("Hello three times")
+    print("Hello three times")
 }
 
 for (index, person) in attendeeList.enumerate() {
-  print("\(person) is at position #\(index)")
+    print("\(person) is at position #\(index)")
 }
 
 for index in 0.stride(to: items.count, by: 2) {
-  print(index)
+    print(index)
 }
 
 for index in (0...3).reverse() {
-  print(index)
+    print(index)
 }
 ```
 
@@ -814,16 +810,16 @@ for index in (0...3).reverse() {
 ```swift
 var i = 0
 while i < 3 {
-  print("Hello three times")
-  i += 1
+    print("Hello three times")
+    i += 1
 }
 
 
 var i = 0
 while i < attendeeList.count {
-  let person = attendeeList[i]
-  print("\(person) is at position #\(i)")
-  i += 1
+    let person = attendeeList[i]
+    print("\(person) is at position #\(i)")
+    i += 1
 }
 ```
 ## Golden Path
@@ -834,12 +830,12 @@ When coding with conditionals, the left hand margin of the code should be the "g
 ```swift
 func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
 
-  guard let context = context else { throw FFTError.noContext }
-  guard let inputData = inputData else { throw FFTError.noInputData }
+    guard let context = context else { throw FFTError.noContext }
+    guard let inputData = inputData else { throw FFTError.noInputData }
+      
+    // use context and input to compute the frequencies
     
-  // use context and input to compute the frequencies
-    
-  return frequencies
+    return frequencies
 }
 ```
 
@@ -847,19 +843,19 @@ func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies 
 ```swift
 func computeFFT(context: Context?, inputData: InputData?) throws -> Frequencies {
 
-  if let context = context {
-    if let inputData = inputData {
-      // use context and input to compute the frequencies
+    if let context = context {
+      if let inputData = inputData {
+        // use context and input to compute the frequencies
 
-      return frequencies
+        return frequencies
+      }
+      else {
+        throw FFTError.noInputData
+      }
     }
     else {
-      throw FFTError.noInputData
+      throw FFTError.noContext
     }
-  }
-  else {
-    throw FFTError.noContext
-  }
 }
 ```
 
@@ -874,20 +870,20 @@ guard let number1 = number1, number2 = number2, number3 = number3 else { fatalEr
 **Not Preferred:**
 ```swift
 if let number1 = number1 {
-  if let number2 = number2 {
-    if let number3 = number3 {
-      // do something with numbers
+    if let number2 = number2 {
+      if let number3 = number3 {
+        // do something with numbers
+      }
+      else {
+        fatalError("impossible")
+      }
     }
     else {
       fatalError("impossible")
     }
-  }
-  else {
-    fatalError("impossible")
-  }
 }
 else {
-  fatalError("impossible")
+    fatalError("impossible")
 }
 ```
 
@@ -922,14 +918,14 @@ Parentheses around conditionals are not required and should be omitted.
 **Preferred:**
 ```swift
 if name == "Hello" {
-  print("World")
+    print("World")
 }
 ```
 
 **Not Preferred:**
 ```swift
 if (name == "Hello") {
-  print("World")
+    print("World")
 }
 ```
 
